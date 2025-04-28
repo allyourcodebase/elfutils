@@ -1,0 +1,38 @@
+.{
+    .name = .elfutils,
+    .version = "0.192.0",
+    .minimum_zig_version = "0.14.0",
+    .dependencies = .{
+        .elfutils = .{
+            // Zig cannot fetch this dependency yet. https://github.com/ziglang/zig/issues/22650
+            .url = "git+https://github.com/Techatrix/elfutils?ref=elfutils-0.192#0f3b436b7e4fc4d310be79a62e40a115fdc482d0",
+            .hash = "N-V-__8AAIQGJAEXcr6-lFXTMBDHeC3iKepWTJ81xkih2e9T",
+        },
+        .zlib = .{
+            .url = "git+https://github.com/allyourcodebase/zlib#6c72830882690c1eb2567a537525c3f432c1da50",
+            .hash = "zlib-1.3.1-ZZQ7lVgMAACwO4nUUd8GLhsuQ5JQq_VAhlEiENJTUv6h",
+            .lazy = true,
+        },
+        .zstd = .{
+            .url = "git+https://github.com/allyourcodebase/zstd.git?ref=1.5.7#01327d49cbc56dc24c20a167bb0055d7fc23de84",
+            .hash = "zstd-1.5.7-KEItkJ8vAAC5_rRlKmLflYQ-eKXbAIQBWZNmmJtS18q0",
+            .lazy = true,
+        },
+        .argp_standalone = .{
+            .url = "git+https://github.com/allyourcodebase/argp-standalone.git#514aa8f007ffeb603aa483b61c6af992340987c6",
+            .hash = "argp_standalone-1.5.0-dev-m1pQhx1-AAC5ta_wRlN8kbJfUEHD-hDo5DmSMYlfzsDd",
+            .lazy = true,
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "COPYING",
+        "COPYING-GPLV2",
+        "COPYING-LGPLV3",
+        "README.md",
+        "config.h.in",
+        "known-dwarf.h",
+    },
+    .fingerprint = 0xfdbf17961cc21e97, // Changing this has security and trust implications.
+}
