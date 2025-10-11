@@ -14,7 +14,7 @@ pub fn build(b: *std.Build) void {
     const use_zlib = b.option(bool, "zlib", "Use zlib") orelse true;
     const use_zstd = b.option(bool, "zstd", "Use zstd") orelse true;
 
-    const config_header = b.addConfigHeader(.{ .style = .{ .autoconf = b.path("config.h.in") } }, .{
+    const config_header = b.addConfigHeader(.{ .style = .{ .autoconf_undef = b.path("config.h.in") } }, .{
         .CHECK_UNDEFINED = switch (optimize) {
             .Debug, .ReleaseSafe => true,
             .ReleaseFast, .ReleaseSmall => false,
