@@ -104,6 +104,10 @@ pub fn build(b: *std.Build) void {
     libeu.root_module.addConfigHeader(config_header);
     libeu.root_module.addCMacro("HAVE_CONFIG_H", "1");
     libeu.root_module.addCMacro("_GNU_SOURCE", "1");
+    if (target.result.isWasiLibC()) {
+        libeu.root_module.addCMacro("_WASI_EMULATED_MMAN", "1");
+        libeu.root_module.linkSystemLibrary("wasi-emulated-mman", .{});
+    }
     libeu.root_module.addIncludePath(upstream.path("lib"));
     libeu.root_module.addCSourceFiles(.{
         .root = upstream.path("lib"),
@@ -146,6 +150,11 @@ pub fn build(b: *std.Build) void {
         .root = upstream.path("libelf"),
         .files = libelf_sources,
     });
+
+    if (target.result.isWasiLibC()) {
+        libelf.root_module.addCMacro("_WASI_EMULATED_MMAN", "1");
+        libelf.root_module.linkSystemLibrary("wasi-emulated-mman", .{});
+    }
 
     if (use_zlib) {
         if (b.systemIntegrationOption("zlib", .{})) {
@@ -199,6 +208,10 @@ pub fn build(b: *std.Build) void {
         .root = upstream.path("libdwelf"),
         .files = libdwelf_sources,
     });
+    if (target.result.isWasiLibC()) {
+        libdwelf.root_module.addCMacro("_WASI_EMULATED_MMAN", "1");
+        libdwelf.root_module.linkSystemLibrary("wasi-emulated-mman", .{});
+    }
 
     const libebl = b.addLibrary(.{
         .linkage = linkage,
@@ -224,6 +237,10 @@ pub fn build(b: *std.Build) void {
         .root = upstream.path("libebl"),
         .files = libebl_sources,
     });
+    if (target.result.isWasiLibC()) {
+        libebl.root_module.addCMacro("_WASI_EMULATED_MMAN", "1");
+        libebl.root_module.linkSystemLibrary("wasi-emulated-mman", .{});
+    }
 
     const libdw = b.addLibrary(.{
         .linkage = linkage,
@@ -256,6 +273,10 @@ pub fn build(b: *std.Build) void {
         .root = upstream.path("libdw"),
         .files = libdw_sources,
     });
+    if (target.result.isWasiLibC()) {
+        libdw.root_module.addCMacro("_WASI_EMULATED_MMAN", "1");
+        libdw.root_module.linkSystemLibrary("wasi-emulated-mman", .{});
+    }
 }
 
 const libeu_sources: []const []const u8 = &.{
